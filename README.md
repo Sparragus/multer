@@ -19,7 +19,7 @@ $ npm install --save koa-multer
 
 ## Usage
 
-### **=1.x**, **100%**, working with [multer-v1.x](https://github.com/expressjs/multer) and [koa-v2.x](https://github.com/koajs/koa/tree/v2.x).
+### **=1.x**, **100%**, working with [multer-v1.x](https://github.com/expressjs/multer) and [koa-v1.x](https://github.com/koajs/koa).
 
 ```js
 const Koa = require('koa');
@@ -33,20 +33,6 @@ app.use(route.post('/profile', upload.single('avatar')));
 
 app.listen(3000);
 ```
-
-### **=0.x**, working with `multer-v0.x`(v0.1.8 is the latset version of v0.x) and [koa-v1.x](https://github.com/koajs/koa)
-
-```js
-var koa = require('koa');
-var multer = require('koa-multer');
-
-var app = koa();
-
-app.use(multer({ dest: './uploads/'}));
-
-app.listen(3000);
-```
-
 
 ## License
 
