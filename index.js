@@ -13,7 +13,7 @@
 
 const originalMulter = require('multer')
 
-function multer(options) {
+function multer (options) {
   const m = originalMulter(options)
 
   const _makeMiddleware = m._makeMiddleware.bind(m)
@@ -25,14 +25,16 @@ function multer(options) {
   return m
 }
 
-function makePromise(fn) {
+function makePromise (fn) {
   return (fields, fileStrategy) => {
-    return (ctx, next) => {
-      return new Promise((resolve, reject) => {
-        fn(fields, fileStrategy)(ctx.req, ctx.res, (err) => {
-          err ? reject(err) : resolve(ctx)
+    return function * (next) {
+      yield new Promise((resolve, reject) => {
+        fn(fields, fileStrategy)(this.req, this.res, (err) => {
+          err ? reject(err) : resolve()
         })
-      }).then(next)
+      })
+
+      yield next
     }
   }
 }
@@ -40,4 +42,4 @@ function makePromise(fn) {
 multer.diskStorage = originalMulter.diskStorage
 multer.memoryStorage = originalMulter.memoryStorage
 
-module.exports = multer
+export default multer
